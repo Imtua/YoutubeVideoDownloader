@@ -3,19 +3,26 @@
     /// <summary>
     /// Класс команды вывода информции о видео
     /// </summary>
-    internal class GetInfoCommand : Command
+    internal class GetInfoCommand : ICommand
     {
+        //
+        Reciever reciever;
+        // Ссылка на видео
+        public string Url { get; set; }
+
         // Конструктор
-        public GetInfoCommand(string url) : base(url) { } 
-
-        public override void Run()
+        public GetInfoCommand(string url)
         {
-            Console.WriteLine("Вывод информации о видео");
+            Url = url;
         }
 
-        public override void Cancel()
+        // Получение информации о видео
+        public void Run()
         {
-            // Реализация отмены не предусмотрена
+            Console.WriteLine("Получение информации о видео");
         }
+
+        // Реализация отмены не предусмотрена
+        public void Cancel() { }
     }
 }

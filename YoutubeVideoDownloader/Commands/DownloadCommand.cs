@@ -3,17 +3,25 @@
     /// <summary>
     /// Класс команды скачивания видео
     /// </summary>
-    internal class DownloadCommand : Command
+    internal class DownloadCommand : ICommand
     {
-        // Конструктор
-        public DownloadCommand(string url) : base(url) { } 
+        // Ссылка на видео
+        public string Url { get; set; }
 
-        public override void Run()
+        // Конструктор
+        public DownloadCommand(string url)
+        {
+            Url = url;
+        }
+
+        // Запуск команды скачивания
+        public void Run()
         {
             Console.WriteLine("Запуск скачивания");
         }
 
-        public override void Cancel()
+        // Отмена команды скачивания
+        public void Cancel()
         {
             Console.WriteLine("Отмена скачивания");
         }
