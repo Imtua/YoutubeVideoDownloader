@@ -1,28 +1,41 @@
-﻿namespace YoutubeVideoDownloader.Commands
+﻿using YoutubeExplode;
+using YoutubeExplode.Videos;
+
+namespace YoutubeVideoDownloader.Commands
 {
     /// <summary>
     /// Класс команды вывода информции о видео
     /// </summary>
-    internal class GetInfoCommand : ICommand
+    internal class GetInfoCommand : BaseCommand
     {
-        //
-        Reciever reciever;
-        // Ссылка на видео
-        public string Url { get; set; }
+        // Объект для получения ссылки на скачивание.
+        private YoutubeClient _youtube;
 
-        // Конструктор
-        public GetInfoCommand(string url)
+        public GetInfoCommand(string url) : base(url)
         {
-            Url = url;
+            _youtube = new YoutubeClient();
         }
 
-        // Получение информации о видео
-        public void Run()
+        /// <summary>
+        /// Получение информации о видео.
+        /// </summary>
+        public override void Run()
         {
-            Console.WriteLine("Получение информации о видео");
+            if (_youtube.Videos.GetAsync(Url).GetAwaiter().GetResult() is Video video)
+            {
+                Console.WriteLine($"Название видео: {video.Title}");
+                Console.WriteLine($"Автор: {video.Author}");
+                Console.WriteLine($"Описание:\n{video.Description}");
+            }
+            else
+            {
+                Console.WriteLine("Не удалось вывести информацию");
+            }
         }
 
-        // Реализация отмены не предусмотрена
-        public void Cancel() { }
+        /// <summary>
+        /// Реализация отмены не предусмотрена.
+        /// </summary>
+        public override void Cancel() { }
     }
 }

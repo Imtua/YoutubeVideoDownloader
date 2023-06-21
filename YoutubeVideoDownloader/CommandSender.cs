@@ -1,4 +1,5 @@
-﻿using YoutubeVideoDownloader.Commands;
+﻿using YoutubeExplode;
+using YoutubeVideoDownloader.Commands;
 
 namespace YoutubeVideoDownloader
 {
@@ -7,10 +8,10 @@ namespace YoutubeVideoDownloader
     /// </summary>
     internal class CommandSender
     {
-        private ICommand _command;
+        private BaseCommand _command;
 
         // Конструктор
-        public CommandSender(ICommand command)
+        public CommandSender(BaseCommand command)
         {
             _command= command;
         }
@@ -18,6 +19,7 @@ namespace YoutubeVideoDownloader
         // Выполнить команду
         public void Start()
         {
+            
             _command.Run();
         }
 
